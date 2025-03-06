@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LolMeCTF</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #171716;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            overflow: hidden;
+            cursor: default; 
+        }
+        img {
+            max-width: 80%;
+            height: auto;
+        }
+        .links {
+            position: absolute;
+            bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        a {
+            color: #ffffff;
+            text-shadow: 0 0 10px #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+      
+        .custom-cursor {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none; 
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, background-color 0.2s ease;
+            z-index: 1000;
+            mix-blend-mode: difference; 
+        }
+    </style>
+</head>
+<body>
+    <img src="1.png" alt="LolMeCTF Logo">
+    <div class="links">
+        <a href="https://github.com/mattkoco">kocorowski</a>
+        <a href="https://github.com/sa1181405">LolMeNow</a>
+    </div>
+  
+    <div class="custom-cursor"></div>
+
+    <script>
+        
+        const cursor = document.querySelector('.custom-cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        const delay = 0.1;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+        });
+
+        function animateCursor() {
+           
+            cursorX += (mouseX - cursorX) * delay;
+            cursorY += (mouseY - cursorY) * delay;
+            cursor.style.left = `${cursorX}px`;
+            cursor.style.top = `${cursorY}px`;
+
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        const links = document.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            });
+            link.addEventListener('mouseleave', () => {
+                cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
